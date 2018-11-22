@@ -1,0 +1,31 @@
+
+/* 
+    Created on : Nov 21, 2018, 8:53:18 AM
+    Author     : averywald
+*/
+
+/* buttons in menu bar */
+.menuBar .menuItem {
+    -fx-background-color: #999999;
+    -fx-text-fill: white;
+}
+
+.menuItem:hover {
+    -fx-background-color: #666666;
+    -fx-transition: .3s;
+}
+
+.transferButtons {
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+}
+
+.transferButtons:hover {
+    
+}
+
+#executeButton:hover {
+    -fx-background-color: #0be200;
+    -fx-text-fill: black;
+    -fx-transition: .3s;
+}

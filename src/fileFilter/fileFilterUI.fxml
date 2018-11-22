@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="basePane" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #666;" stylesheets="@interfaceStyleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fileFilter.Controller">
+   <children>
+      <MenuBar fx:id="mb">
+        <menus>
+            <Menu fx:id="preferencesMenu" mnemonicParsing="false" text="Preferences">
+               <items>
+                  <MenuItem fx:id="openPref" mnemonicParsing="false" onAction="#openPreferences" text="Open Preferences" />
+               </items>
+            </Menu>
+          <Menu fx:id="windowMenu" mnemonicParsing="false" text="Window">
+            <items>
+              <MenuItem fx:id="mini" mnemonicParsing="false" text="Mini Window" />
+            </items>
+          </Menu>
+          <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem fx:id="undo" mnemonicParsing="false" text="Undo" />
+                  <MenuItem fx:id="redo" mnemonicParsing="false" text="Redo" />
+            </items>
+          </Menu>
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="openAbout" mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Button fx:id="sourceDirButton" mnemonicParsing="false" onAction="#chooseSource" styleClass="transferButtons" text="Choose Source Directory">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Button>
+      <Label fx:id="sourceDirPath" text="Source" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="targetDirButton" mnemonicParsing="false" onAction="#chooseTarget" prefHeight="72.0" prefWidth="443.0" styleClass="transferButtons" text="Choose Target Directory">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Button>
+      <Label fx:id="targetDirPath" text="Target" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="executeButton" mnemonicParsing="false" onAction="#execute" prefHeight="72.0" prefWidth="182.0" styleClass="transferButtons" text="Execute">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Button>
+      <Label fx:id="statusLabel" text="Execution Status" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+   </children>
+</VBox>
