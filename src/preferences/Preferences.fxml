@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="preferences.PreferencesController">
    <children>
       <MenuBar fx:id="mb">
@@ -36,15 +35,17 @@
       </MenuBar>
       <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: #666666;">
          <children>
-            <HBox fx:id="navBar" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="580.0">
+            <HBox fx:id="navBar" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="580.0" spacing="5.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#openMain" text="&lt;" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="fileFilter.NavBarController.#goBack" text="&lt;" />
+                  <Button fx:id="forwardButton" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="fileFilter.NavBarController.#goForward" text="&gt;" />
+                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="fileFilter.NavBarController.#goHome" text="Home" />
                </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" right="10.0" />
                </padding>
             </HBox>
             <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="320.0" prefWidth="600.0" style="-fx-background-color: #666666;" vbarPolicy="ALWAYS" vmax="100.0">
@@ -53,19 +54,42 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="600.0" spacing="350.0" style="-fx-background-color: #555555;">
                            <children>
-                              <Label text="Clean unused Files" textFill="WHITE">
+                              <Label text="Clean unused files" textFill="WHITE">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <ToggleButton mnemonicParsing="false" />
+                              <CheckBox fx:id="cleanUnusedToggle" mnemonicParsing="false" onAction="#setCleanUnused" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #666666;" />
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #555555;" />
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #666666;">
+                           <children>
+                              <Label prefHeight="28.0" prefWidth="287.0" text="Replace duplicate files" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="replaceDuplicatesToggle" mnemonicParsing="false" onAction="#setReplaceDuplicates" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #555555;">
+                           <children>
+                              <Label prefHeight="28.0" prefWidth="287.0" text="Delete Empty Folders" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="deleteEmptyToggle" mnemonicParsing="false" onAction="#setDeleteEmpty" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
                         <HBox layoutX="10.0" layoutY="60.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #666666;" />
                         <HBox layoutX="10.0" layoutY="110.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #555555;" />
                         <HBox layoutX="10.0" layoutY="160.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #666666;" />
