@@ -3,13 +3,16 @@ package fileFilter;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,21 +24,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-/*
-    To do:
-    - cleaning
-        - clean unused files and directories
-        - search & delete entire tree if necessary
-    - preferences
-        - UI
-        - controller functions
-            - class state variables for settings
-        - save user settings
-    - threading for saving scene history 
-        - back/forward buttons
-*/
-
-public class Controller {
+/**
+ * FXML Controller class
+ * 
+ * Manipulates data and states from FileDataModel.java
+ * Communicates changes to FileFilterUI.fxml
+ *
+ * @author averywald
+ */
+public class Controller extends NavBarController implements Initializable {
     
     File sourceFile;
     Path sourcePath;
@@ -45,52 +42,40 @@ public class Controller {
     
     File[] dirFiles;
 
-    @FXML
-    private VBox basePane;
-    @FXML
-    private MenuBar mb;
-
-    @FXML
-    private Menu preferencesMenu;
-    @FXML
-    private MenuItem openPref;
+    @FXML private VBox basePane;
     
-    @FXML
-    private Menu editMenu;
-    @FXML
-    private MenuItem undo;
-    @FXML
-    private MenuItem redo;
+    @FXML private Button sourceDirButton;
+    @FXML private Label sourceDirPath;
     
-    @FXML
-    private Menu helpMenu;
-    @FXML
-    private MenuItem openAbout;
+    @FXML private Button targetDirButton;
+    @FXML private Label targetDirPath;
     
-    @FXML
-    private Menu windowMenu;
-    @FXML
-    private MenuItem mini;
+    @FXML private Button executeButton;
+    @FXML private Label statusLabel;
     
-    @FXML
-    private Button sourceDirButton;
-    @FXML
-    private Label sourceDirPath;
+    // controller and model instances
+    FileDataModel fdm;
+    NavBarController nbc;                   // needed if extended???
     
-    @FXML
-    private Button targetDirButton;
-    @FXML
-    private Label targetDirPath;
     
-    @FXML
-    private Button executeButton;
-    @FXML
-    private Label statusLabel;
+    // methods -----------------------------------------------------------------
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) { 
+        nbc = new NavBarController();  // superclass controller instance
+        fdm = new FileDataModel();  // file data model instance
+        this.Controller();  // call class constructor
+        
+        this.loc = location;
+        this.rb = resources;
+    }
     
     // constructor
     public void Controller() {
+        // assign values to class variables
     }
 
+    // choose source directory
     @FXML
     void chooseSource(ActionEvent event) {
         
@@ -112,6 +97,7 @@ public class Controller {
         
     }
 
+    // choose target directory
     @FXML
     void chooseTarget(ActionEvent event) {
         
@@ -133,19 +119,31 @@ public class Controller {
         
     }
 
+    // execute file transfer from source to target
+    // needs to be reimplemented as to not delete the source directory
     @FXML
     void execute(ActionEvent event) throws IOException {
+
+        try {
+            Path temp = Files.move(this.sourcePath, this.targetPath, StandardCopyOption.REPLACE_EXISTING);
         
-        Path temp = Files.move(this.sourcePath, this.targetPath, StandardCopyOption.REPLACE_EXISTING);
-        
-        if (temp == this.targetPath) {
-            statusLabel.setText("Success");
+            if (temp == this.targetPath) {
+                statusLabel.setText("Success");
+            }
+            else {
+                statusLabel.setText("Failure");
+            }
+
+            System.out.println("Target:" + targetFile.getName());
+            System.out.println("Terminal:" + temp.getFileName());
+        }
+        catch (IOException ex) {
+            // handle
         }
         
-        System.out.println("Target:" + targetFile.getName());
-        System.out.println("Terminal:" + temp.getFileName());
     }
     
+    // needs to store all the files in directory path in an array for further manipulation
     void getSourceFiles(File sourcePath) {
         
         this.dirFiles = sourcePath.listFiles();
@@ -157,6 +155,7 @@ public class Controller {
         
     }
     
+    // open preferences pane
     @FXML
     void openPreferences(ActionEvent event) throws IOException {
         

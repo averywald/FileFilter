@@ -6,7 +6,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.stage.Stage;
 
 public class FileFilter extends Application {
@@ -15,7 +14,7 @@ public class FileFilter extends Application {
     public void start(Stage window) throws IOException {
         
         // link to FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("fileFilterUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FileFilterUI.fxml")); // change path for start pg
         
         Scene scene = new Scene(root, 600, 400);
         
